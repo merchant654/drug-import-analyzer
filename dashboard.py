@@ -38,8 +38,7 @@ rate = get_usd_to_irr()
 st.metric("💵 نرخ جهانی دلار (تقریبی)", f"{rate:,} ریال")
 
     # پیدا کردن نرخ دلار آزاد
-    tag = soup.find("td", {"id": "l-price_dollar"})
-    if tag:
+        if tag:
         rate = tag.text.replace(",", "").strip()
         return int(rate)
     else:
