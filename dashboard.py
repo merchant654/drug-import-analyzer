@@ -48,4 +48,3 @@ if import_file and rate_file:
                           right_on=["تاریخ", "نوع ارز"])
 
         # محاسبه قیمت ریالی
-        merged["قیمت تمام‌شده (ریال)"] = mer
