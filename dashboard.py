@@ -25,8 +25,9 @@ else:
 
 # --- آپلود فایل‌ها ---
 st.sidebar.header("آپلود فایل‌ها")
-import_file = st.sidebar.file_uploader("➕ فایل واردات دارو", type=["xlsx"])
-rate_file = st.sidebar.file_uploader("➕ فایل نرخ ارز", type=["xlsx"])
+import_file = st.sidebar.file_uploader("➕ فایل واردات دارو", type=["xlsx", "csv"])
+
+rate_file = st.sidebar.file_uploader("➕ فایل نرخ ارز", type=["xlsx", "csv"])
 
 if import_file and rate_file:
     try:
