@@ -3,6 +3,12 @@ import pandas as pd
 import plotly.express as px
 import io
 import requests
+@st.cache_data(ttl=600)
+def get_usd_to_irr():
+    url = "https://api.exchangerate.host/latest?base=USD&symbols=IRR"
+    r = requests.get(url)
+    rate = r.json()['rates']['IRR']
+    return round(rate)
 def get_usd_to_irr():
     url = "https://api.exchangerate.host/latest?base=USD&symbols=IRR"
     r = requests.get(url)
@@ -12,10 +18,6 @@ def get_usd_to_irr():
 rate = get_usd_to_irr()
 st.metric("💵 نرخ جهانی دلار (تقریبی)", f"{rate:,} ریال")
 
-import requests
-from bs4 import BeautifulSoup
-
-def get_dollar_rate_tgju():
     url = "https://www.tgju.org"
     response = requests.get(url)
     soup = BeautifulSoup(response.text, 'html.parser')
@@ -28,11 +30,14 @@ def get_dollar_rate_tgju():
     else:
         return None
 
-rate = get_dollar_rate_tgju()
-print(f"نرخ دلار آزاد از tgju.org: {rate:,} ریال")
 st.set_page_config(page_title="تحلیل واردات دارویی", layout="wide")
 
 st.title("📊 داشبورد تحلیل هزینه واردات دارو")
+rate = get_usd_to_irr()
+if rate:
+    st.metric("💵 نرخ جهانی دلار (تقریبی)", f"{rate:,} ریال")
+else:
+    st.warning("❌ نرخ لحظه‌ای قابل دریافت نیست.")
 
 # --- آپلود فایل‌ها ---
 st.sidebar.header("آپلود فایل‌ها")
