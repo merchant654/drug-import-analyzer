@@ -1,35 +1,7 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
-import io
-import requests
-def get_usd_to_irr():
-    url = "https://api.exchangerate.host/latest?base=USD&symbols=IRR"
-    r = requests.get(url)
-    rate = r.json()['rates']['IRR']
-    return round(rate)
 
-rate = get_usd_to_irr()
-st.metric("💵 نرخ جهانی دلار (تقریبی)", f"{rate:,} ریال")
-
-import requests
-from bs4 import BeautifulSoup
-
-def get_dollar_rate_tgju():
-    url = "https://www.tgju.org"
-    response = requests.get(url)
-    soup = BeautifulSoup(response.text, 'html.parser')
-
-    # پیدا کردن نرخ دلار آزاد
-    tag = soup.find("td", {"id": "l-price_dollar"})
-    if tag:
-        rate = tag.text.replace(",", "").strip()
-        return int(rate)
-    else:
-        return None
-
-rate = get_dollar_rate_tgju()
-print(f"نرخ دلار آزاد از tgju.org: {rate:,} ریال")
 st.set_page_config(page_title="تحلیل واردات دارویی", layout="wide")
 
 st.title("📊 داشبورد تحلیل هزینه واردات دارو")
@@ -70,18 +42,7 @@ if import_file and rate_file:
                       title="روند نرخ ارز به تفکیک نوع ارز", markers=True)
         st.plotly_chart(fig, use_container_width=True)
 
-        # --- خروجی Excel ---
-        output = io.BytesIO()
-        with pd.ExcelWriter(output, engine='xlsxwriter') as writer:
-            merged.to_excel(writer, index=False, sheet_name='نتایج')
-        output.seek(0)
-
-        st.download_button(
-            label="📥 دانلود خروجی به صورت Excel",
-            data=output,
-            file_name="تحلیل_واردات_دارو.xlsx",
-            mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-        )
-
     except Exception as e:
-        st.error(f"❌ خطا در پردازش فایل‌ها: {e}")
+        st.error(f"خطا در پردازش فایل‌ها: {e}")
+else:
+    st.info("لطفاً هر دو فایل را در نوار کناری بارگذاری کنید.")
