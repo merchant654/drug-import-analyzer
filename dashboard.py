@@ -85,4 +85,3 @@ if import_file and rate_file:
 
     except Exception as e:
         st.error(f"❌ خطا در پردازش فایل‌ها: {e}")
-else:
