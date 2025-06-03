@@ -61,9 +61,3 @@ else:
 st.write("📂 پیش‌نمایش فایل نرخ ارز:")
 st.write(rate_file.name)
 
-if rate_file.name.endswith(".csv"):
-    rate_df = pd.read_csv(rate_file)
-else:
-    rate_df = pd.read_excel(rate_file)
-
-st.dataframe(rate_df)  # نمایش داده‌ها
