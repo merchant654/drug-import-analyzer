@@ -1,5 +1,8 @@
+import streamlit as st
+import pandas as pd
+import plotly.express as px
+import io
 import requests
-
 def get_usd_to_irr():
     url = "https://api.exchangerate.host/latest?base=USD&symbols=IRR"
     r = requests.get(url)
@@ -27,11 +30,6 @@ def get_dollar_rate_tgju():
 
 rate = get_dollar_rate_tgju()
 print(f"نرخ دلار آزاد از tgju.org: {rate:,} ریال")
-import streamlit as st
-import pandas as pd
-import plotly.express as px
-import io
-
 st.set_page_config(page_title="تحلیل واردات دارویی", layout="wide")
 
 st.title("📊 داشبورد تحلیل هزینه واردات دارو")
