@@ -58,3 +58,12 @@ if import_file and rate_file:
         st.error(f"❌ خطا در پردازش فایل‌ها: {e}")
 else:
     st.info("لطفاً هر دو فایل را در نوار کناری بارگذاری کنید.")
+st.write("📂 پیش‌نمایش فایل نرخ ارز:")
+st.write(rate_file.name)
+
+if rate_file.name.endswith(".csv"):
+    rate_df = pd.read_csv(rate_file)
+else:
+    rate_df = pd.read_excel(rate_file)
+
+st.dataframe(rate_df)  # نمایش داده‌ها
