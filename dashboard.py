@@ -17,8 +17,7 @@ def get_usd_to_irr():
 
 rate = get_usd_to_irr()
 st.metric("💵 نرخ جهانی دلار (تقریبی)", f"{rate:,} ریال")
-
-   import streamlit as st
+import streamlit as st
 import pandas as pd
 import plotly.express as px
 import io
