@@ -46,5 +46,3 @@ if import_file and rate_file:
         merged = pd.merge(import_df, rate_df, how="left",
                           left_on=["تاریخ خرید", "نوع ارز"],
                           right_on=["تاریخ", "نوع ارز"])
-
-        # محاسبه قیمت ریالی
