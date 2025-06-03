@@ -1,4 +1,15 @@
 import requests
+
+def get_usd_to_irr():
+    url = "https://api.exchangerate.host/latest?base=USD&symbols=IRR"
+    r = requests.get(url)
+    rate = r.json()['rates']['IRR']
+    return round(rate)
+
+rate = get_usd_to_irr()
+st.metric("💵 نرخ جهانی دلار (تقریبی)", f"{rate:,} ریال")
+
+import requests
 from bs4 import BeautifulSoup
 
 def get_dollar_rate_tgju():
