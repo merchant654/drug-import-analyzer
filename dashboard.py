@@ -1,10 +1,26 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
+import requests
+@st.cache_data(ttl=600)
+def get_usd_to_irr():
+    try:
+        url = "https://api.exchangerate.host/latest?base=USD&symbols=IRR"
+        response = requests.get(url, timeout=5)
+        data = response.json()
+        return round(data['rates']['IRR'])
+    except:
+        return None
 
 st.set_page_config(page_title="تحلیل واردات دارویی", layout="wide")
 
 st.title("📊 داشبورد تحلیل هزینه واردات دارو")
+# نمایش نرخ لحظه‌ای دلار جهانی
+rate = get_usd_to_irr()
+if rate:
+    st.metric("💵 نرخ جهانی دلار (تقریبی)", f"{rate:,} ریال")
+else:
+    st.warning("❌ نرخ لحظه‌ای قابل دریافت نیست.")
 
 # --- آپلود فایل‌ها ---
 st.sidebar.header("آپلود فایل‌ها")
