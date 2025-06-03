@@ -4,21 +4,6 @@ import plotly.express as px
 import io
 import requests
 
-rate = get_usd_to_irr()
-st.metric("💵 نرخ جهانی دلار (تقریبی)", f"{rate:,} ریال")
-
-    url = "https://www.tgju.org"
-    response = requests.get(url)
-    soup = BeautifulSoup(response.text, 'html.parser')
-
-    # پیدا کردن نرخ دلار آزاد
-    tag = soup.find("td", {"id": "l-price_dollar"})
-    if tag:
-        rate = tag.text.replace(",", "").strip()
-        return int(rate)
-    else:
-        return None
-
 st.set_page_config(page_title="تحلیل واردات دارویی", layout="wide")
 
 st.title("📊 داشبورد تحلیل هزینه واردات دارو")
