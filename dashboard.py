@@ -1,3 +1,21 @@
+import requests
+from bs4 import BeautifulSoup
+
+def get_dollar_rate_tgju():
+    url = "https://www.tgju.org"
+    response = requests.get(url)
+    soup = BeautifulSoup(response.text, 'html.parser')
+
+    # پیدا کردن نرخ دلار آزاد
+    tag = soup.find("td", {"id": "l-price_dollar"})
+    if tag:
+        rate = tag.text.replace(",", "").strip()
+        return int(rate)
+    else:
+        return None
+
+rate = get_dollar_rate_tgju()
+print(f"نرخ دلار آزاد از tgju.org: {rate:,} ریال")
 import streamlit as st
 import pandas as pd
 import plotly.express as px
